@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💖 A Very Important Question for Cass 💖</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Patrick+Hand&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fce4ec, #f8bbd0, #f48fb1, #fce4ec);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bubblegum Sans', cursive;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating hearts background */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 20px;
+            animation: floatUp linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main content */
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 20px;
+            max-width: 700px;
+        }
+
+        .cute-image {
+            font-size: 80px;
+            margin-bottom: 10px;
+            animation: bounce 1s ease infinite;
+            display: inline-block;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .title {
+            font-size: 2.8em;
+            color: #c2185b;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+            animation: pulse 2s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .subtitle {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.4em;
+            color: #e91e63;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .question {
+            font-size: 2.2em;
+            color: #ad1457;
+            margin: 20px 0 30px;
+            animation: wiggle 3s ease infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(2deg); }
+            75% { transform: rotate(-2deg); }
+        }
+
+        .buttons-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            min-height: 120px;
+            position: relative;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #e91e63, #c2185b);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.5em;
+            font-family: 'Bubblegum Sans', cursive;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.4);
+            position: relative;
+            z-index: 20;
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(233, 30, 99, 0.6);
+        }
+
+        .btn-no {
+            background: linear-gradient(135deg, #9e9e9e, #757575);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.5em;
+            font-family: 'Bubblegum Sans', cursive;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 20;
+        }
+
+        .btn-no:hover {
+            background: linear-gradient(135deg, #757575, #616161);
+        }
+
+        .no-counter {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.3em;
+            color: #c2185b;
+            margin-top: 25px;
+            min-height: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .attempt-counter {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1em;
+            color: #e91e63;
+            margin-top: 10px;
+            opacity: 0.7;
+        }
+
+        /* Decorative corner images */
+        .corner-decor {
+            position: fixed;
+            font-size: 40px;
+            z-index: 5;
+            animation: sway 4s ease-in-out infinite;
+        }
+
+        .corner-decor.tl { top: 20px; left: 20px; }
+        .corner-decor.tr { top: 20px; right: 20px; animation-delay: 1s; }
+        .corner-decor.bl { bottom: 20px; left: 20px; animation-delay: 2s; }
+        .corner-decor.br { bottom: 20px; right: 20px; animation-delay: 3s; }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(-10deg) scale(1); }
+            50% { transform: rotate(10deg) scale(1.2); }
+        }
+
+        /* Sparkle animation */
+        .sparkle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 100;
+            font-size: 20px;
+            animation: sparkleAnim 1s ease forwards;
+        }
+
+        @keyframes sparkleAnim {
+            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.5) rotate(180deg); opacity: 1; }
+            100% { transform: scale(0) rotate(360deg); opacity: 0; }
+        }
+
+        /* YES CELEBRATION */
+        .celebration-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 200, 220, 0.95);
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            animation: fadeInCelebration 1s ease;
+        }
+
+        .celebration-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeInCelebration {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .celebration-title {
+            font-size: 3.5em;
+            color: #c2185b;
+            animation: celebrateBounce 0.5s ease infinite alternate;
+            margin-bottom: 10px;
+        }
+
+        @keyframes celebrateBounce {
+            from { transform: scale(1) rotate(-2deg); }
+            to { transform: scale(1.1) rotate(2deg); }
+        }
+
+        .celebration-subtitle {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.8em;
+            color: #e91e63;
+            margin: 15px 0;
+            line-height: 1.5;
+        }
+
+        .celebration-emoji {
+            font-size: 60px;
+            animation: spin 2s linear infinite;
+            margin: 10px;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .celebration-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1001;
+        }
+
+        .confetti-heart {
+            position: absolute;
+            top: -10%;
+            animation: confettiFall linear forwards;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(720deg) scale(0.5);
+                opacity: 0.3;
+            }
+        }
+
+        .kiss-trail {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1002;
+            font-size: 30px;
+            animation: kissFloat 2s ease forwards;
+        }
+
+        @keyframes kissFloat {
+            0% { transform: scale(0); opacity: 1; }
+            50% { transform: scale(1.5) translateY(-30px); opacity: 1; }
+            100% { transform: scale(0.5) translateY(-80px); opacity: 0; }
+        }
+
+        /* Dancing bears on celebration */
+        .dancing-row {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .dancer {
+            font-size: 50px;
+            display: inline-block;
+            animation: dance 0.5s ease infinite alternate;
+        }
+
+        .dancer:nth-child(2) { animation-delay: 0.1s; }
+        .dancer:nth-child(3) { animation-delay: 0.2s; }
+        .dancer:nth-child(4) { animation-delay: 0.3s; }
+        .dancer:nth-child(5) { animation-delay: 0.4s; }
+
+        @keyframes dance {
+            from { transform: translateY(0) rotate(-10deg); }
+            to { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        .love-letter {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 40px;
+            margin-top: 20px;
+            box-shadow: 0 10px 40px rgba(233, 30, 99, 0.3);
+            max-width: 500px;
+            animation: letterAppear 1s ease 0.5s both;
+        }
+
+        @keyframes letterAppear {
+            from { transform: scale(0) rotate(-10deg); opacity: 0; }
+            to { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        .love-letter p {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.4em;
+            color: #ad1457;
+            line-height: 1.6;
+        }
+
+        /* Shaking animation for no */
+        @keyframes nope {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        .shake {
+            animation: nope 0.5s ease;
+        }
+
+        /* Spinning no button */
+        @keyframes spinButton {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Rainbow text */
+        .rainbow {
+            background: linear-gradient(to right, #e91e63, #ff5722, #ff9800, #e91e63, #9c27b0, #e91e63);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbow 3s linear infinite;
+        }
+
+        @keyframes rainbow {
+            to { background-position: 200% center; }
+        }
+
+        /* Cursor sparkle trail */
+        .mouse-sparkle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            font-size: 16px;
+            animation: mouseSparkle 0.8s ease forwards;
+        }
+
+        @keyframes mouseSparkle {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0) translateY(-20px); opacity: 0; }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .title { font-size: 2em; }
+            .question { font-size: 1.6em; }
+            .btn-yes, .btn-no { padding: 14px 35px; font-size: 1.2em; }
+            .celebration-title { font-size: 2.5em; }
+            .corner-decor { font-size: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating hearts background -->
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <!-- Corner decorations -->
+    <div class="corner-decor tl">🧸💕</div>
+    <div class="corner-decor tr">💐🦋</div>
+    <div class="corner-decor bl">🌹✨</div>
+    <div class="corner-decor br">💌🐻</div>
+
+    <!-- Main content -->
+    <div class="container" id="mainContainer">
+        <div class="cute-image">🥺👉👈</div>
+        <h1 class="title">Hey Cass...</h1>
+        <p class="subtitle">
+            Ethan here. I have a very important, <br>
+            completely serious, life-altering question...
+        </p>
+        <div class="question" id="question">
+            Will you be my Valentine? 💖
+        </div>
+        <div class="buttons-container" id="buttonsContainer">
+            <button class="btn-yes" id="btnYes" onclick="handleYes()">
+                Yes! 💖
+            </button>
+            <button class="btn-no" id="btnNo" onclick="handleNo()">
+                No 💔
+            </button>
+        </div>
+        <div class="no-counter" id="noMessage"></div>
+        <div class="attempt-counter" id="attemptCounter"></div>
+    </div>
+
+    <!-- Celebration overlay -->
+    <div class="celebration-overlay" id="celebration">
+        <div class="celebration-hearts" id="confettiContainer"></div>
+        <div class="celebration-title rainbow">SHE SAID YES!!!</div>
+        <div class="dancing-row">
+            <span class="dancer">💃</span>
+            <span class="dancer">🕺</span>
+            <span class="dancer">💃</span>
+            <span class="dancer">🕺</span>
+            <span class="dancer">💃</span>
+        </div>
+        <div class="celebration-subtitle">
+            🎉 EVERYBODY STAY CALM!!! 🎉<br>
+            Cass is officially Ethan's Valentine! 🥹💖
+        </div>
+        <div>
+            <span class="celebration-emoji">💖</span>
+            <span class="celebration-emoji" style="animation-delay: 0.3s">💕</span>
+            <span class="celebration-emoji" style="animation-delay: 0.6s">💗</span>
+            <span class="celebration-emoji" style="animation-delay: 0.9s">💝</span>
+            <span class="celebration-emoji" style="animation-delay: 1.2s">💘</span>
+        </div>
+        <div class="love-letter">
+            <p>
+                Dear Cass,<br><br>
+                I made this whole website just to ask you this question,
+                so you literally <em>cannot</em> say no.
+                It's coded into the website. I checked. 🤓<br><br>
+                Happy Valentine's Day, you absolute cutie. 🥰<br><br>
+                — Ethan 💌
+            </p>
+        </div>
+        <div class="dancing-row" style="margin-top: 15px;">
+            <span class="dancer">🐻</span>
+            <span class="dancer">❤️</span>
+            <span class="dancer">🐻</span>
+            <span class="dancer">❤️</span>
+            <span class="dancer">🐻</span>
+        </div>
+    </div>
+
+    <script>
+        // ============ FLOATING HEARTS BACKGROUND ============
+        const heartEmojis = ['💖', '💕', '💗', '💓', '💝', '💘', '❤️', '🩷', '🌸', '✨', '🦋'];
+        const floatingContainer = document.getElementById('floatingHearts');
+
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.fontSize = (15 + Math.random() * 25) + 'px';
+            heart.style.animationDuration = (6 + Math.random() * 8) + 's';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            floatingContainer.appendChild(heart);
+            setTimeout(() => heart.remove(), 16000);
+        }
+
+        setInterval(createFloatingHeart, 600);
+        for (let i = 0; i < 15; i++) setTimeout(createFloatingHeart, i * 200);
+
+        // ============ MOUSE SPARKLE TRAIL ============
+        let sparkleThrottle = 0;
+        document.addEventListener('mousemove', (e) => {
+            if (Date.now() - sparkleThrottle < 100) return;
+            sparkleThrottle = Date.now();
+            const sparkle = document.createElement('div');
+            sparkle.className = 'mouse-sparkle';
+            sparkle.textContent = ['✨', '💖', '🩷', '⭐', '💕'][Math.floor(Math.random() * 5)];
+            sparkle.style.left = e.clientX + 'px';
+            sparkle.style.top = e.clientY + 'px';
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 800);
+        });
+
+        // ============ NO BUTTON LOGIC ============
+        let noCount = 0;
+        const btnYes = document.getElementById('btnYes');
+        const btnNo = document.getElementById('btnNo');
+        const noMessage = document.getElementById('noMessage');
+        const attemptCounter = document.getElementById('attemptCounter');
+        const buttonsContainer = document.getElementById('buttonsContainer');
+
+        const noMessages = [
+            "Hmm, are you sure? 🤔",
+            "That doesn't seem right... try again! 😤",
+            "Whoops! That button doesn't work 😏",
+            "ERROR 404: Valid answer not found 🤖",
+            "Cass. CASS. Look at the other button. 👀",
+            "I'm not mad, just disappointed... 😢",
+            "The 'No' button is just for decoration btw 🎀",
+            "My therapist will hear about this 😭",
+            "You're really gonna make me cry on Valentine's Day? 🥺",
+            "I showed this website to my mom and she said you have to say yes 👩",
+            "I will mass text everyone that you said no... 📱",
+            "Plot twist: No means Yes in this universe 🌌",
+            "I spent HOURS making this website... HOURS, Cass! ⏰",
+            "Even the button is running away from that answer 🏃‍♂️",
+            "At this point you're just clicking it for fun aren't you 😑",
+            "I'm literally begging at this point 🧎",
+            "The button is getting smaller because even IT is embarrassed 😳",
+            "Fun fact: clicking No burns 0 calories but hurts 1 Ethan 💀",
+            "OK I'll just wait here... forever... no big deal... 🫠",
+            "PLEASE I ALREADY BOUGHT THE CHOCOLATE 🍫😩",
+            "Cass I swear the next click better be Yes 😤💖",
+            "You know you want to click Yes... I can see it in your eyes 👁️👁️",
+            "If you click No one more time I'm telling your mom 📞",
+            "The No button has filed a restraining order against your cursor 👨‍⚖️",
+            "At this point, this is just bullying 😭",
+            "I'm running out of funny messages Cass PLEASE 😩",
+            "OK that's it, the No button is literally giving up 🏳️",
+            "YOU LEAVE ME NO CHOICE... *makes Yes button bigger* 📏",
+            "Legend says if you click No 100 times a wild Ethan appears crying 😭",
+            "This is attempt #30... the button can't take much more 💀",
+        ];
+
+        const noButtonTexts = [
+            "No 💔", "Nah", "Nope", "Still no?", "hmm...", "...", "🥲",
+            "stop", "pls", "ok fine", "i give up", "💀", "ᴺᵒ", "ⁿ⁰",
+            "...", "😵", "🫥", "help", "ᵗⁱⁿʸ ⁿᵒ", "."
+        ];
+
+        function handleNo() {
+            noCount++;
+
+            // Show message
+            const msgIndex = Math.min(noCount - 1, noMessages.length - 1);
+            noMessage.textContent = noMessages[msgIndex];
+            noMessage.classList.remove('shake');
+            void noMessage.offsetWidth; // trigger reflow
+            noMessage.classList.add('shake');
+
+            // Show attempt counter
+            attemptCounter.textContent = `Failed attempts: ${noCount} 😤`;
+
+            // Make Yes bigger
+            const currentYesFontSize = parseFloat(window.getComputedStyle(btnYes).fontSize);
+            const newYesSize = Math.min(currentYesFontSize * 1.12, 80);
+            btnYes.style.fontSize = newYesSize + 'px';
+            btnYes.style.padding = `${Math.min(18 + noCount * 2, 40)}px ${Math.min(50 + noCount * 5, 120)}px`;
+
+            // Make No smaller
+            const currentNoFontSize = parseFloat(window.getComputedStyle(btnNo).fontSize);
+            const newNoSize = Math.max(currentNoFontSize * 0.85, 6);
+            btnNo.style.fontSize = newNoSize + 'px';
+            const noPadH = Math.max(18 - noCount * 1.5, 3);
+            const noPadW = Math.max(50 - noCount * 4, 8);
+            btnNo.style.padding = `${noPadH}px ${noPadW}px`;
+
+            // Change No button text
+            if (noCount < noButtonTexts.length) {
+                btnNo.textContent = noButtonTexts[noCount];
+            }
+
+            // Move No button to random position after 3 clicks
+            if (noCount >= 3) {
+                const containerRect = document.body.getBoundingClientRect();
+                const maxX = containerRect.width - 100;
+                const maxY = containerRect.height - 60;
+                const randomX = Math.random() * maxX;
+                const randomY = Math.random() * maxY;
+                btnNo.style.position = 'fixed';
+                btnNo.style.left = randomX + 'px';
+                btnNo.style.top = randomY + 'px';
+                btnNo.style.zIndex = '50';
+            }
+
+            // Add spin after 5 clicks
+            if (noCount >= 5 && noCount % 2 === 0) {
+                btnNo.style.animation = 'spinButton 0.5s ease';
+                setTimeout(() => { btnNo.style.animation = ''; }, 500);
+            }
+
+            // Reduce opacity after 8 clicks
+            if (noCount >= 8) {
+                const opacity = Math.max(1 - (noCount - 8) * 0.06, 0.15);
+                btnNo.style.opacity = opacity;
+            }
+
+            // Make it rotate permanently after 12
+            if (noCount >= 12) {
+                btnNo.style.transform = `rotate(${(noCount - 12) * 15}deg)`;
+            }
+
+            // Make Yes button glow more
+            const glowIntensity = Math.min(noCount * 3, 40);
+            btnYes.style.boxShadow = `0 0 ${glowIntensity}px rgba(233, 30, 99, 0.7)`;
+
+            // Update Yes button text at milestones
+            if (noCount === 5) btnYes.textContent = "YES! 💖💖";
+            if (noCount === 10) btnYes.textContent = "YESSS! 💖💖💖";
+            if (noCount === 15) btnYes.textContent = "CLICK ME PLEASE 🥺💖";
+            if (noCount === 20) btnYes.textContent = "I'M RIGHT HERE 😭💖💖💖";
+            if (noCount === 25) btnYes.textContent = "👉 YES 👈 THIS ONE";
+
+            // Create burst of sparkles at click position
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'sparkle';
+                    sparkle.textContent = ['💔', '😢', '🥺', '😤', '❌'][Math.floor(Math.random() * 5)];
+                    sparkle.style.left = (Math.random() * window.innerWidth) + 'px';
+                    sparkle.style.top = (Math.random() * window.innerHeight) + 'px';
+                    document.body.appendChild(sparkle);
+                    setTimeout(() => sparkle.remove(), 1000);
+                }, i * 100);
+            }
+
+            // The title gets more desperate
+            const question = document.getElementById('question');
+            if (noCount === 3) question.textContent = "Will you PLEASE be my Valentine? 💖";
+            if (noCount === 6) question.textContent = "Pretty please?? 🥺💖";
+            if (noCount === 10) question.textContent = "I'M BEGGING YOU CASS 😭💖";
+            if (noCount === 15) question.textContent = "CASSSSSS 😩💖💖💖";
+            if (noCount === 20) question.textContent = "OK just click Yes already!! 😤💖";
+            if (noCount >= 25) question.innerHTML = "<span class='rainbow'>THE ANSWER IS YES AND YOU KNOW IT 💖</span>";
+        }
+
+        // ============ YES BUTTON LOGIC ============
+        function handleYes() {
+            // Hide main container
+            document.getElementById('mainContainer').style.display = 'none';
+
+            // Show celebration
+            const celebration = document.getElementById('celebration');
+            celebration.classList.add('active');
+
+            // Launch confetti hearts
+            launchConfetti();
+
+            // Start kiss trail on mouse
+            document.addEventListener('mousemove', kissTrail);
+
+            // Play continuous confetti
+            setInterval(launchConfetti, 3000);
+        }
+
+        function launchConfetti() {
+            const container = document.getElementById('confettiContainer');
+            const confettiEmojis = ['💖', '💕', '💗', '💓', '💝', '💘', '❤️', '🩷', '🌸', '✨',
+                                     '🎉', '🎊', '💐', '🌹', '🦋', '⭐', '🥰', '😍', '💌', '🧸'];
+
+            for (let i = 0; i < 40; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'confetti-heart';
+                    heart.textContent = confettiEmojis[Math.floor(Math.random() * confettiEmojis.length)];
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.fontSize = (20 + Math.random() * 40) + 'px';
+                    heart.style.animationDuration = (2 + Math.random() * 3) + 's';
+                    heart.style.animationDelay = Math.random() * 0.5 + 's';
+                    container.appendChild(heart);
+                    setTimeout(() => heart.remove(), 6000);
+                }, i * 80);
+            }
+        }
+
+        let kissThrottle = 0;
+        function kissTrail(e) {
+            if (Date.now() - kissThrottle < 200) return;
+            kissThrottle = Date.now();
+            const kiss = document.createElement('div');
+            kiss.className = 'kiss-trail';
+            kiss.textContent = ['💋', '💖', '💕', '🥰', '✨'][Math.floor(Math.random() * 5)];
+            kiss.style.left = e.clientX + 'px';
+            kiss.style.top = e.clientY + 'px';
+            document.body.appendChild(kiss);
+            setTimeout(() => kiss.remove(), 2000);
+        }
+
+        // ============ NO BUTTON DODGE ON HOVER (after 6 clicks) ============
+        btnNo.addEventListener('mouseenter', () => {
+            if (noCount >= 6) {
+                const containerRect = document.body.getBoundingClientRect();
+                const maxX = containerRect.width - 100;
+                const maxY = containerRect.height - 60;
+                btnNo.style.position = 'fixed';
+                btnNo.style.left = Math.random() * maxX + 'px';
+                btnNo.style.top = Math.random() * maxY + 'px';
+                btnNo.style.zIndex = '50';
+            }
+        });
+
+        // ============ KONAMI-ISH: Typing "yes" triggers celebration ============
+        let typedKeys = '';
+        document.addEventListener('keydown', (e) => {
+            typedKeys += e.key.toLowerCase();
+            if (typedKeys.includes('yes')) {
+                handleYes();
+                typedKeys = '';
+            }
+            if (typedKeys.length > 10) typedKeys = typedKeys.slice(-5);
+        });
+    </script>
+</body>
+</html>
